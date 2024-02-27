@@ -1,0 +1,19 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: blog-frontend
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www
+    networks:
+      - blog-frontend-network
+    environment:
+      - LC_ALL=tr_TR.UTF-8
+      - LANG=tr_TR.UTF-8
+
+networks:
+  blog-frontend-network:
