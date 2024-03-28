@@ -96,6 +96,7 @@
                     <div class="flex justify-between items-center mb-6">
                       <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Yorumlar (20)</h2>
                   </div>
+                  @if($comment && count($comment) > 0)
                   <form class="mb-6">
                       <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                           <label for="comment" class="sr-only">Your comment</label>
@@ -108,13 +109,14 @@
                           Gönder
                       </button>
                   </form>
+                  @foreach($comment as $comment)
                   <article class="p-6 text-base bg-white rounded-lg dark:bg-gray-900">
                       <footer class="flex justify-between items-center mb-2">
                           <div class="flex items-center">
                               <p class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold"><img
                                       class="mr-2 w-6 h-6 rounded-full"
                                       src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
-                                      alt="Michael Gough">Dara Kemaloğlu</p>
+                                      alt="Michael Gough">{{ $comment['user_id'] }}</p>
                               <p class="text-sm text-gray-600 dark:text-gray-400"><time pubdate datetime="2022-02-08"
                                       title="February 8th, 2022">Şub. 8, 2024</time></p>
                           </div>
@@ -126,7 +128,7 @@
                               </svg>
                               <span class="sr-only">Comment settings</span>
                           </button>
-                          <!-- Dropdown menu -->
+
                           <div id="dropdownComment1"
                               class="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                               <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
@@ -146,12 +148,18 @@
                               </ul>
                           </div>
                       </footer>
-                      <p class="text-gray-500 dark:text-gray-400">Very straight-to-point article. Really worth time reading. Thank you! But tools are just the
-                          instruments for the UX designers. The knowledge of the design tools are as important as the
-                          creation of the design strategy.</p>
+                      <p class="text-gray-500 dark:text-gray-400">{{ $comment['content'] }}</p>
                       <div class="flex items-center mt-4 space-x-4">
                       </div>
                   </article>
+                    @endforeach
+
+                    @else
+                        <p class="mt-3">Yorum yapmak ve diğer kullanıcıların yorumlarını görmek için öncelikle giriş yapmanız gerekiyor. Eğer hesabınız yoksa kayıt olabilirsiniz..</p>
+                        <a href="/register">Kaydol</a><br>
+                        <a href="/login">Giriş Yap</a>
+                    @endif
+
 
                   <article class="p-6 mb-3 text-base bg-white border-t border-gray-200 dark:border-gray-700 dark:bg-gray-900">
                       <footer class="flex justify-between items-center mb-2">
@@ -212,6 +220,7 @@
                                   <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/>
                               </svg>
                           </button>
+
                           <!-- Dropdown menu -->
                           <div id="dropdownComment4"
                               class="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">

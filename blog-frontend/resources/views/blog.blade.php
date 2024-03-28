@@ -50,12 +50,10 @@
             </a>
         </div>
         <div :class="open ? 'block': 'hidden'" class="w-full flex-grow sm:flex sm:items-center sm:w-auto">
-            <div class="w-full container mx-auto flex flex-col sm:flex-row items-center justify-center text-sm font-bold uppercase mt-0 px-6 py-2">
-                <a href="#" class="hover:text-yellow-400 rounded py-2 px-4 mx-2">TEKNOLOJİ</a>
-                <a href="#" class="hover:text-yellow-400 rounded py-2 px-4 mx-2">OTOMOTİV</a>
-                <a href="#" class="hover:text-yellow-400 rounded py-2 px-4 mx-2">FİNANS</a>
-                <a href="#" class="hover:text-yellow-400 rounded py-2 px-4 mx-2">SEYAHAT</a>
-                <a href="#" class="hover:text-yellow-400 rounded py-2 px-4 mx-2">SPOR</a>
+            <div class="w-full container mx-auto flex flex-col sm:flex-row items-center justify-center text-md font-bold mt-0 px-6 py-2">
+                @foreach ($categories as $category)
+                    <a href="#" class="hover:text-yellow-400 rounded py-2 px-4 mx-2">{{$category['title']}}</a>
+                @endforeach
             </div>
         </div>
         <div class="relative text-gray-600 flex justify-center items-center">
