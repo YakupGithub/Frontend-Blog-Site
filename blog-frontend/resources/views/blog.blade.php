@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,8 +17,8 @@
 
             <nav>
                 <ul class="flex items-center justify-between font-bold text-sm text-white uppercase no-underline">
-                    <li><a class="hover:text-gray-200 hover:underline px-4" href="/register">KAYIT OL</a></li>
-                    <li><a class="hover:text-gray-200 hover:underline px-4" href="/login">GİRİŞ YAP</a></li>
+                    <li><a class="hover:text-gray-200 hover:underline px-4" href="/register">kayıt ol</a></li>
+                    <li><a class="hover:text-gray-200 hover:underline px-4" href="/login">giriş yap</a></li>
                 </ul>
             </nav>
 
@@ -46,11 +46,11 @@
                 class="block md:hidden text-base font-bold uppercase text-center flex justify-center items-center"
                 @click="open = !open"
             >
-                KATEGORİLER <i :class="open ? 'fa-chevron-down': 'fa-chevron-up'" class="fas ml-2"></i>
+                kategoriler <i :class="open ? 'fa-chevron-down': 'fa-chevron-up'" class="fas ml-2"></i>
             </a>
         </div>
         <div :class="open ? 'block': 'hidden'" class="w-full flex-grow sm:flex sm:items-center sm:w-auto">
-            <div class="w-full container mx-auto flex flex-col sm:flex-row items-center justify-center text-md font-bold mt-0 px-6 py-2">
+            <div class="w-full container mx-auto flex flex-col sm:flex-row uppercase items-center justify-center text-md font-bold mt-0 px-6 py-2">
                 @foreach ($categories as $category)
                     <a href="#" class="hover:text-yellow-400 rounded py-2 px-4 mx-2">{{$category['title']}}</a>
                 @endforeach
@@ -67,51 +67,26 @@
 
         <!-- Posts -->
         <section class="w-full md:w-2/3 flex flex-col items-center px-3">
-
+            @foreach ($posts as $post)
             <article class="flex flex-col shadow my-4">
-                <a href="#" class="hover:opacity-75">
-                    <img src="https://source.unsplash.com/collection/1346951/1000x500?sig=1">
-                </a>
-                <div class="bg-white flex flex-col justify-start p-6">
-                    <a href="http://localhost/post" class="text-blue-700 text-sm font-bold uppercase pb-4">TEKNOLOJİ</a>
-                    <a href="http://localhost/post" class="text-3xl font-bold hover:text-gray-700 pb-4">Lorem Ipsum Dolor Sit Amet Dolor Sit Amet</a>
-                    <p href="http://localhost/post" class="text-sm pb-3">
-                        By <a href="http://localhost/post" class="font-semibold hover:text-gray-800">Yakup Gündüz</a>, Kaydedilme Tarihi 10 Mart 2024
-                    </p>
-                    <a href="http://localhost/post" class="pb-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis porta dui. Ut eu iaculis massa. Sed ornare ligula lacus, quis iaculis dui porta volutpat. In sit amet posuere magna..</a>
-                    <a href="http://localhost/post" class="uppercase text-gray-800 hover:text-black">DEVAMINI OKU <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </article>
 
-            <article class="flex flex-col shadow my-4">
-                <a href="#" class="hover:opacity-75">
-                    <img src="https://source.unsplash.com/collection/1346951/1000x500?sig=2">
-                </a>
-                <div class="bg-white flex flex-col justify-start p-6">
-                    <a href="http://localhost/post" class="text-blue-700 text-sm font-bold uppercase pb-4">OTOMOTİV, FİNANS</a>
-                    <a href="http://localhost/post" class="text-3xl font-bold hover:text-gray-700 pb-4">Lorem Ipsum Dolor Sit Amet Dolor Sit Amet</a>
-                    <p href="http://localhost/post" class="text-sm pb-3">
-                        By <a href="http://localhost/post" class="font-semibold hover:text-gray-800">Yakup Gündüz</a>, Kaydedilme Tarihi 11 Mart 2024
-                    </p>
-                    <a href="http://localhost/post" class="pb-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis porta dui. Ut eu iaculis massa. Sed ornare ligula lacus, quis iaculis dui porta volutpat. In sit amet posuere magna..</a>
-                    <a href="http://localhost/post" class="uppercase text-gray-800 hover:text-black">DEVAMINI OKU <i class="fas fa-arrow-right"></i></a>
-                </div>
+                    <a href="#" class="hover:opacity-75">
+                        <img src="{{ $post['thumbnail'] }}">
+                    </a>
+                    <div class="bg-white flex flex-col justify-start p-6">
+                        <a href="{{ route('post', ['id' => $post['id']]) }}" class="text-blue-700 text-sm font-bold uppercase pb-4">{{ $post['category']['title'] }}</a>
+                        <a href="{{ route('post', ['id' => $post['id']]) }}" class="text-3xl font-bold hover:text-gray-700 pb-4">{{ $post['title'] }}</a>
+                        <p href="{{ route('post', ['id' => $post['id']]) }}" class="text-sm pb-3 text-blue-700 font-semibold hover:text-blue-800">
+                        @if ($post['user'])
+                            <a href="http://localhost/post" class="font-semibold">{{ $post['user']['name'] }}</a> tarafından
+                        @endif
+                            </a>{{ \Carbon\Carbon::parse($post['published_at'])->diffForHumans() }} kaydedildi.
+                        </p>
+                        <p href="{{ route('post', ['id' => $post['id']]) }}" class="pb-6">{{$post['body']}}</p>
+                        <a href="{{ route('post', ['id' => $post['id']]) }}" class="uppercase text-gray-800 hover:text-black">DEVAMINI OKU <i class="fas fa-arrow-right"></i></a>
+                    </div>
             </article>
-
-            <article class="flex flex-col shadow my-4">
-                <a href="#" class="hover:opacity-75">
-                    <img src="https://source.unsplash.com/collection/1346951/1000x500?sig=3">
-                </a>
-                <div class="bg-white flex flex-col justify-start p-6">
-                    <a href="http://localhost/post" class="text-blue-700 text-sm font-bold uppercase pb-4">Spor</a>
-                    <a href="http://localhost/post" class="text-3xl font-bold hover:text-gray-700 pb-4">Lorem Ipsum Dolor Sit Amet Dolor Sit Amet</a>
-                    <p href="http://localhost/post" class="text-sm pb-3">
-                        By <a href="http://localhost/post" class="font-semibold hover:text-gray-800">Yakup Gündüz</a>, Kaydedilme Tarihi 12 Mart 2024
-                    </p>
-                    <a href="http://localhost/post" class="pb-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis porta dui. Ut eu iaculis massa. Sed ornare ligula lacus, quis iaculis dui porta volutpat. In sit amet posuere magna..</a>
-                    <a href="http://localhost/post" class="uppercase text-gray-800 hover:text-black">DEVAMINI OKU <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </article>
+            @endforeach
 
             <div class="flex items-center py-8">
                 <a href="" class="h-10 w-10 bg-blue-800 hover:bg-blue-600 font-semibold text-white text-sm flex items-center justify-center">1</a>
@@ -126,15 +101,7 @@
             <div class="w-full bg-white shadow flex flex-col my-4 p-6">
                 <p class="text-xl font-semibold pb-5">En Çok Beğenilenler</p>
                 <div class="grid grid-cols-3 gap-3">
-                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=1">
-                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=2">
-                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=3">
-                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=4">
-                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=5">
-                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=6">
-                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=7">
-                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=8">
-                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=9">
+
                 </div>
                 <a href="#" class="w-full bg-blue-800 text-white font-bold text-sm uppercase rounded hover:bg-blue-700 flex items-center justify-center px-2 py-3 mt-6">
                     EN ÇOK BEĞENİLEN YAZILARIMIZ
@@ -143,15 +110,7 @@
             <div class="w-full bg-white shadow flex flex-col my-4 p-6">
                 <p class="text-xl font-semibold pb-5">Güncel Yazılar</p>
                 <div class="grid grid-cols-3 gap-3">
-                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=1">
-                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=2">
-                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=3">
-                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=4">
-                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=5">
-                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=6">
-                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=7">
-                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=8">
-                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=9">
+                    
                 </div>
                 <a href="#" class="w-full bg-blue-800 text-white font-bold text-sm uppercase rounded hover:bg-blue-700 flex items-center justify-center px-2 py-3 mt-6">
                     Güncel blog yazılarımız
@@ -159,8 +118,9 @@
             </div>
         </aside>
     </div>
-    <div class="w-full container mx-auto flex flex-col items-center">
-        <div class="uppercase pb-6">&copy; kleblog.com | Yakup GÜNDÜZ 2024</div>
+
+    <div class="w-full bg-yellow-600 container-fluid mx-auto flex flex-col items-center py-6">
+        <div class=" text-white font-semibold">&copy; kleblog.com | Yakup Gündüz - 2024</div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>

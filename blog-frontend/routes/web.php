@@ -15,13 +15,12 @@ use App\Http\Controllers\UserController;
 |
 */
 
-// Route::get('/', [HomeController::class, 'blog'])->name('user.index');
-Route::get('/', [HomeController::class, 'category']);
+Route::get('/', [HomeController::class, 'CategoriesAndPosts']);
+Route::get('/post/{id}', [HomeController::class, 'post'])->name('post');
+Route::post('/post/{id}', [HomeController::class, 'createComment'])->name('create.comment');
 
-Route::get('/register', [UserController::class, 'signup']);
+Route::get('/register', [UserController::class, 'signup'])->name('user.signup');
 Route::post('/register', [UserController::class, 'register'])->name('user.register');
 Route::get ('login', [UserController::class, 'signin'])->name('user.signin');
 Route::post('login', [UserController::class, 'login'])->name('user.login');
 
-Route::get('/post', [HomeController::class, 'post'])->name('user.post');
-Route::post('/post', [HomeController::class, 'post']);
