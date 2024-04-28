@@ -17,7 +17,7 @@
                 <h1>Hoşgeldin, {{$user}}!</h1>
             </div>
             <ul class="flex items-center justify-end font-bold text-sm text-white uppercase no-underline">
-                <li><a class="hover:text-yellow-400 px-4" href="{{ route('user.edit', ['id' => $user['id']]) }}">Profili Düzenle</a></li>
+                {{-- <li><a class="hover:text-yellow-400 px-4" href="{{ route('user.edit', ['id' => $user['user']]) }}">Profili Düzenle</a></li> --}}
                 <li><a class="hover:text-yellow-400 px-4" href="/logout">Çıkış Yap</a></li>
             </ul>
         </div>
@@ -71,9 +71,7 @@
         </div>
         <div :class="open ? 'block': 'hidden'" class="w-full flex-grow sm:flex sm:items-center sm:w-auto">
             <div class="w-full container mx-auto flex flex-col sm:flex-row uppercase items-center justify-center text-lg font-bold mt-0 px-6 py-2">
-                @foreach ($categories as $category)
-                    <a href="{{ route('category', ['slug' => $category['slug']]) }}" class="hover:text-yellow-400 rounded py-2 px-4 mx-2">{{$category['title']}}</a>
-                @endforeach
+                <a class="hover:text-yellow-400 rounded py-2 px-4 mx-2">{{$category['title']}}</a>
             </div>
         </div>
         <div class="relative text-gray-800 flex justify-center items-center">
@@ -82,7 +80,7 @@
         </div>
     </nav>
 
-<!-- Home Posts -->
+<!-- Posts -->
     <div class="container mx-auto flex flex-wrap py-6">
         <section class="w-full md:w-2/3 flex flex-col items-center px-3">
             @foreach ($posts as $post)
@@ -90,10 +88,10 @@
             <article class="flex flex-col shadow my-4">
                     <a href="{{ route('post', ['id' => $post['id']]) }}"><img src="{{ $post['thumbnail'] }}"></a>
                     <div class="bg-white flex flex-col justify-start p-6">
-                        <a href="{{ route('post', ['id' => $post['id']]) }}" class="text-yellow-600 text-md font-bold uppercase pb-4">{{ $post['category']['title'] }}</a>
+                        {{-- <a href="{{ route('post', ['id' => $post['id']]) }}" class="text-yellow-600 text-md font-bold uppercase pb-4">{{ $post['category']['title'] }}</a> --}}
                         <a href="{{ route('post', ['id' => $post['id']]) }}" class="text-3xl font-bold hover:text-gray-800 pb-4">{{ $post['title'] }}</a>
                         <p href="{{ route('post', ['id' => $post['id']]) }}" class="text-sm pb-3 text-yellow-600 font-semibold hover:text-yellow-600">
-                        <span class="font-semibold">{{ $post['user']['name'] }}</span> tarafından
+                        <span class="font-semibold">{{ $post['user_id'] }}</span> tarafından
                         </span>{{ \Carbon\Carbon::parse($post['published_at'])->diffForHumans() }} kaydedildi.
                         </p>
                         <p href="{{ route('post', ['id' => $post['id']]) }}" class="pb-6">{{ Illuminate\Support\Str::limit($post['body'], 180) }}</p>
@@ -110,33 +108,33 @@
             </div>
 
         </section>
-        <aside class="w-full md:w-1/3 flex flex-col items-center px-3">
-            <div class="w-full bg-white shadow flex flex-col my-4 p-6">
-                <p class="text-xl font-semibold pb-5">En Çok Beğenilenler</p>
-                <div class="grid grid-cols-3 gap-3">
+<aside class="w-full md:w-1/3 flex flex-col items-center px-3">
+    <div class="w-full bg-white shadow flex flex-col my-4 p-6">
+        <p class="text-xl font-semibold pb-5">En Çok Beğenilenler</p>
+        <div class="grid grid-cols-3 gap-3">
 
-                </div>
-                <a href="#" class="w-full bg-yellow-600 text-white font-bold text-sm uppercase rounded hover:bg-yellow-600 flex items-center justify-center px-2 py-3 mt-6">
-                    EN ÇOK BEĞENİLEN YAZILARIMIZ
-                </a>
-            </div>
-            <div class="w-full bg-white shadow flex flex-col my-4 p-6">
-                <p class="text-xl font-semibold pb-5">Güncel Yazılar</p>
-                <div class="grid grid-cols-3 gap-3">
-
-                </div>
-                <a href="#" class="w-full bg-yellow-600 text-white font-bold text-sm uppercase rounded hover:bg-yellow-600 flex items-center justify-center px-2 py-3 mt-6">
-                    Güncel blog yazılarımız
-                </a>
-            </div>
-        </aside>
         </div>
+        <a href="#" class="w-full bg-yellow-600 text-white font-bold text-sm uppercase rounded hover:bg-yellow-600 flex items-center justify-center px-2 py-3 mt-6">
+            EN ÇOK BEĞENİLEN YAZILARIMIZ
+        </a>
+    </div>
+    <div class="w-full bg-white shadow flex flex-col my-4 p-6">
+        <p class="text-xl font-semibold pb-5">Güncel Yazılar</p>
+        <div class="grid grid-cols-3 gap-3">
 
-        <div class="w-full bg-yellow-600 container-fluid mx-auto flex flex-col items-center py-6">
-        <div class=" text-white font-semibold">&copy; kleblog.com | Yakup Gündüz - 2024</div>
         </div>
+        <a href="#" class="w-full bg-yellow-600 text-white font-bold text-sm uppercase rounded hover:bg-yellow-600 flex items-center justify-center px-2 py-3 mt-6">
+            Güncel blog yazılarımız
+        </a>
+    </div>
+</aside>
+</div>
 
-        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
-        </body>
-        </html>
+<div class="w-full bg-yellow-600 container-fluid mx-auto flex flex-col items-center py-6">
+<div class=" text-white font-semibold">&copy; kleblog.com | Yakup Gündüz - 2024</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+</body>
+</html>

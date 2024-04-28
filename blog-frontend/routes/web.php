@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,12 +16,17 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', [HomeController::class, 'CategoriesAndPosts']);
-Route::get('/post/{id}', [HomeController::class, 'post'])->name('post');
-Route::post('/post/{id}', [HomeController::class, 'createComment'])->name('create.comment');
+Route::get('/', [HomeController::class, 'CategoriesAndPosts'])->name('home');
+
+Route::get('/post/{id}', [PostController::class, 'post'])->name('post');
+Route::post('/post/{id}', [PostController::class, 'createComment'])->name('create.comment');
+Route::get('/kategori/{slug}', [PostController::class, 'category'])->name('category');
 
 Route::get('/register', [UserController::class, 'signup'])->name('user.signup');
 Route::post('/register', [UserController::class, 'register'])->name('user.register');
-Route::get ('login', [UserController::class, 'signin'])->name('user.signin');
-Route::post('login', [UserController::class, 'login'])->name('user.login');
+Route::get ('/login', [UserController::class, 'signin'])->name('user.signin');
+Route::post('/login', [UserController::class, 'login'])->name('user.login');
+Route::get('/logout', [UserController::class, 'logout']);
 
+Route::get('/user/{id}', [UserController::class, 'user'])->name('user.edit');
+Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
