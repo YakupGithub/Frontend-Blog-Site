@@ -87,10 +87,8 @@
         <section class="w-full md:w-2/3 flex flex-col items-center px-3">
 
             <article class="flex flex-col shadow my-4">
-                @if(!isset($posts) || count($posts) === 0)
-                <h1 class="text-lg text-red-700 font-bold p-3">Bu yazının devamını okumak için lütfen giriş yapın!</h1>
-                @else
-                @if ($posts['active'] == 1)
+                @if ($user)
+                {{-- @if ($posts['active'] == 1) --}}
                 <p><img src="{{ $posts['thumbnail'] }}"></p>
                 <div class="bg-white flex flex-col justify-start p-6">
                     <a class="text-yellow-600 text-md font-bold uppercase pb-4">{{ $posts['category']['title'] }}</a>
@@ -151,9 +149,12 @@
                 </div>
               </section>
 
-            @else
+            {{-- @else
                 <h1 class="text-lg text-red-700 font-bold p-3">Oops! Aradığınız blog yazısına ulaşılamadı, <a href="/">anasayfaya dönmek için tıklayınız.</a></h1>
-            @endif
+            @endif --}}
+            @else
+
+                <h1 class="text-lg text-red-700 font-bold p-3">Bu yazının devamını okumak için lütfen giriş yapın!</h1>
             @endif
 
 

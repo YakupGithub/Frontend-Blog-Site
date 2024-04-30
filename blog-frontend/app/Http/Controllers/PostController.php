@@ -12,19 +12,24 @@ class PostController extends Controller
 {
     public function category($slug)
     {
+        $token = session('token');
+
+        $user = session()->get('name');
+        session()->keep('name');
+
         $data = Http::get("http://host.docker.internal:81/api/getCategory/{$slug}");
         $content = $data->json();
 
-        return view('category', ['category' => $content['category'], 'posts' => $content['posts']]);
+        return view('category', ['category' => $content['category'], 'posts' => $content['posts'], 'user' => $user]);
     }
 
-    public function post($id)
+    public function post($slug)
     {
         $token = session('token');
 
         if($token)
         {
-            $dataPosts = Http::withToken($token)->get("http://host.docker.internal:81/api/getPost/{$id}");
+            $dataPosts = Http::withToken($token)->get("http://host.docker.internal:81/api/getPost/{$slug}");
             $dataComments = Http::withToken($token)->get('http://host.docker.internal:81/api/allComments');
             $dataCategories = Http::withToken($token)->get('http://host.docker.internal:81/api/allCategories');
 

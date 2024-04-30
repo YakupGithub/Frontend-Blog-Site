@@ -10,14 +10,14 @@
 <body class="bg-white font-family-karla">
 
     <!-- NavBar -->
-    @if (isset($user))
+    @if ($user)
     <nav class="w-full py-4 bg-gray-800 shadow">
         <div class="w-full container mx-auto flex flex-wrap items-center justify-between">
             <div class="flex items-center justify-start font-bold text-sm text-white uppercase no-underline">
                 <h1>Hoşgeldin, {{$user}}!</h1>
             </div>
             <ul class="flex items-center justify-end font-bold text-sm text-white uppercase no-underline">
-                {{-- <li><a class="hover:text-yellow-400 px-4" href="{{ route('user.edit', ['id' => $user['user']]) }}">Profili Düzenle</a></li> --}}
+                <li><a class="hover:text-yellow-400 px-4" href="{{ route('user.edit') }}">Profili Düzenle</a></li>
                 <li><a class="hover:text-yellow-400 px-4" href="/logout">Çıkış Yap</a></li>
             </ul>
         </div>
@@ -32,6 +32,7 @@
         </div>
     </nav>
     @endif
+
 
     <!-- Text Header -->
     <header class="w-full container mx-auto">

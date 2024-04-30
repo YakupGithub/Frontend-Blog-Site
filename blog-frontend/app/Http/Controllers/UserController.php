@@ -8,17 +8,21 @@ use GuzzleHttp\Client;
 
 class UserController extends Controller
 {
-    public function user($id)
+    public function user()
     {
         $token = session('token');
-        $userId = session('userId');
 
-        if($token && $userId) {
-            $response = Http::withToken($token)->get("http://host.docker.internal:81/api/getUser/{$userId}");
+        if($token) {
+            // $response = Http::withToken($token)->get("http://host.docker.internal:81/api/getUser");
+            // $data = $response->json();
 
-            $user = $response->json();
+            $user = session()->get('name');
+            $user_id = session()->get('id');
+            $user_mail = session()->get('email');
 
-            return view('user', ['user' => $user, 'userId' => $userId]);
+            session()->keep('name');
+
+            return view('user', ['user' => $user, 'id' => $user_id, 'email' =>  $user_mail]);
         } else {
             return redirect()->route('user.login')->with('error', 'Giriş yap');
         }

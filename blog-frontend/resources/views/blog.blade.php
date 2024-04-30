@@ -10,14 +10,14 @@
 <body class="bg-white font-family-karla">
 
     <!-- NavBar -->
-    @if (isset($user))
+    @if ($user)
     <nav class="w-full py-4 bg-gray-800 shadow">
         <div class="w-full container mx-auto flex flex-wrap items-center justify-between">
             <div class="flex items-center justify-start font-bold text-sm text-white uppercase no-underline">
                 <h1>Hoşgeldin, {{$user}}!</h1>
             </div>
             <ul class="flex items-center justify-end font-bold text-sm text-white uppercase no-underline">
-                <li><a class="hover:text-yellow-400 px-4" href="{{ route('user.edit', ['id' => $user['id']]) }}">Profili Düzenle</a></li>
+                <li><a class="hover:text-yellow-400 px-4" href="{{ route('user.edit') }}">Profili Düzenle</a></li>
                 <li><a class="hover:text-yellow-400 px-4" href="/logout">Çıkış Yap</a></li>
             </ul>
         </div>
@@ -88,16 +88,16 @@
             @foreach ($posts as $post)
             @if ($post['active'] == 1)
             <article class="flex flex-col shadow my-4">
-                    <a href="{{ route('post', ['id' => $post['id']]) }}"><img src="{{ $post['thumbnail'] }}"></a>
+                    <a href="{{ route('post', ['slug' => $post['slug']]) }}"><img src="{{ $post['thumbnail'] }}"></a>
                     <div class="bg-white flex flex-col justify-start p-6">
-                        <a href="{{ route('post', ['id' => $post['id']]) }}" class="text-yellow-600 text-md font-bold uppercase pb-4">{{ $post['category']['title'] }}</a>
-                        <a href="{{ route('post', ['id' => $post['id']]) }}" class="text-3xl font-bold hover:text-gray-800 pb-4">{{ $post['title'] }}</a>
-                        <p href="{{ route('post', ['id' => $post['id']]) }}" class="text-sm pb-3 text-yellow-600 font-semibold hover:text-yellow-600">
+                        <a href="{{ route('post', ['slug' => $post['slug']]) }}" class="text-yellow-600 text-md font-bold uppercase pb-4">{{ $post['category']['title'] }}</a>
+                        <a href="{{ route('post', ['slug' => $post['slug']]) }}" class="text-3xl font-bold hover:text-gray-800 pb-4">{{ $post['title'] }}</a>
+                        <p href="{{ route('post', ['slug' => $post['slug']]) }}" class="text-sm pb-3 text-yellow-600 font-semibold hover:text-yellow-600">
                         <span class="font-semibold">{{ $post['user']['name'] }}</span> tarafından
                         </span>{{ \Carbon\Carbon::parse($post['published_at'])->diffForHumans() }} kaydedildi.
                         </p>
-                        <p href="{{ route('post', ['id' => $post['id']]) }}" class="pb-6">{{ Illuminate\Support\Str::limit($post['body'], 180) }}</p>
-                        <a href="{{ route('post', ['id' => $post['id']]) }}" class="uppercase text-sm text-yellow-600  text-gray-800 hover:text-black">DEVAMINI OKU <i class="fas fa-arrow-right"></i></a>
+                        <p href="{{ route('post', ['slug' => $post['slug']]) }}" class="pb-6">{{ Illuminate\Support\Str::limit($post['body'], 180) }}</p>
+                        <a href="{{ route('post', ['slug' => $post['slug']]) }}" class="uppercase text-sm text-yellow-600  text-gray-800 hover:text-black">DEVAMINI OKU <i class="fas fa-arrow-right"></i></a>
                     </div>
             </article>
             @endif

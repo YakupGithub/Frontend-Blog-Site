@@ -18,8 +18,8 @@ use App\Http\Controllers\PostController;
 
 Route::get('/', [HomeController::class, 'CategoriesAndPosts'])->name('home');
 
-Route::get('/post/{id}', [PostController::class, 'post'])->name('post');
-Route::post('/post/{id}', [PostController::class, 'createComment'])->name('create.comment');
+Route::get('/post/{slug}', [PostController::class, 'post'])->name('post');
+Route::post('/post/{slug}', [PostController::class, 'createComment'])->name('create.comment');
 Route::get('/kategori/{slug}', [PostController::class, 'category'])->name('category');
 
 Route::get('/register', [UserController::class, 'signup'])->name('user.signup');
@@ -28,5 +28,5 @@ Route::get ('/login', [UserController::class, 'signin'])->name('user.signin');
 Route::post('/login', [UserController::class, 'login'])->name('user.login');
 Route::get('/logout', [UserController::class, 'logout']);
 
-Route::get('/user/{id}', [UserController::class, 'user'])->name('user.edit');
-Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
+Route::get('/user', [UserController::class, 'user'])->name('user.edit');
+Route::put('/user', [UserController::class, 'update'])->name('user.update');
