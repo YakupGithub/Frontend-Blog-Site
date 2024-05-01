@@ -9,7 +9,6 @@
 </head>
 <body class="bg-white font-family-karla">
 
-    <!-- NavBar -->
     @if (isset($user))
     <nav class="w-full py-4 bg-gray-800 shadow">
         <div class="w-full container mx-auto flex flex-wrap items-center justify-between">
@@ -17,7 +16,7 @@
                 <h1>Hoşgeldin, {{$user}}!</h1>
             </div>
             <ul class="flex items-center justify-end font-bold text-sm text-white uppercase no-underline">
-                {{-- <li><a class="hover:text-yellow-400 px-4" href="{{ route('user.edit', ['id' => $user['user']]) }}">Profili Düzenle</a></li> --}}
+                <li><a class="hover:text-yellow-400 px-4" href="{{ route('user.edit') }}">Profili Düzenle</a></li>
                 <li><a class="hover:text-yellow-400 px-4" href="/logout">Çıkış Yap</a></li>
             </ul>
         </div>
@@ -87,16 +86,15 @@
         <section class="w-full md:w-2/3 flex flex-col items-center px-3">
 
             <article class="flex flex-col shadow my-4">
-                @if ($user)
-                {{-- @if ($posts['active'] == 1) --}}
-                <p><img src="{{ $posts['thumbnail'] }}"></p>
+                @if (isset($user))
+                <p><img src="{{ $posts['post']['thumbnail'] }}"></p>
                 <div class="bg-white flex flex-col justify-start p-6">
-                    <a class="text-yellow-600 text-md font-bold uppercase pb-4">{{ $posts['category']['title'] }}</a>
-                    <p class="text-3xl font-bold pb-4">{{ $posts['title'] }}</p>
-                    <p class="text-sm text-yellow-600 font-semibold pb-4">{{ $posts['user']['name'] }} tarafından
-                        {{ \Carbon\Carbon::parse($posts['published_at'])->diffForHumans() }} kaydedildi.
+                    <a class="text-yellow-600 text-md font-bold uppercase pb-4">{{ $posts['post']['category']['title'] }}</a>
+                    <p class="text-3xl font-bold pb-4">{{ $posts['post']['title'] }}</p>
+                    <p class="text-sm text-yellow-600 font-semibold pb-4">{{ $posts['post']['user']['name'] }} tarafından
+                        {{ \Carbon\Carbon::parse($posts['post']['published_at'])->diffForHumans() }} kaydedildi.
                     </p>
-                    <p class="pb-3 ">{{ $posts['body'] }}</p>
+                    <p class="pb-3 ">{{ $posts['post']['body'] }}</p>
                 </div>
             </article>
 
@@ -149,11 +147,7 @@
                 </div>
               </section>
 
-            {{-- @else
-                <h1 class="text-lg text-red-700 font-bold p-3">Oops! Aradığınız blog yazısına ulaşılamadı, <a href="/">anasayfaya dönmek için tıklayınız.</a></h1>
-            @endif --}}
             @else
-
                 <h1 class="text-lg text-red-700 font-bold p-3">Bu yazının devamını okumak için lütfen giriş yapın!</h1>
             @endif
 

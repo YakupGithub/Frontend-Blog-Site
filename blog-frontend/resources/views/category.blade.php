@@ -87,16 +87,16 @@
             @foreach ($posts as $post)
             @if ($post['active'] == 1)
             <article class="flex flex-col shadow my-4">
-                    <a href="{{ route('post', ['id' => $post['id']]) }}"><img src="{{ $post['thumbnail'] }}"></a>
+                    <a href="{{ route('post', ['slug' => $post['slug']]) }}"><img src="{{ $post['thumbnail'] }}"></a>
                     <div class="bg-white flex flex-col justify-start p-6">
                         {{-- <a href="{{ route('post', ['id' => $post['id']]) }}" class="text-yellow-600 text-md font-bold uppercase pb-4">{{ $post['category']['title'] }}</a> --}}
-                        <a href="{{ route('post', ['id' => $post['id']]) }}" class="text-3xl font-bold hover:text-gray-800 pb-4">{{ $post['title'] }}</a>
-                        <p href="{{ route('post', ['id' => $post['id']]) }}" class="text-sm pb-3 text-yellow-600 font-semibold hover:text-yellow-600">
+                        <a href="{{ route('post', ['slug' => $post['slug']]) }}" class="text-3xl font-bold hover:text-gray-800 pb-4">{{ $post['title'] }}</a>
+                        <p href="{{ route('post', ['slug' => $post['slug']]) }}" class="text-sm pb-3 text-yellow-600 font-semibold hover:text-yellow-600">
                         <span class="font-semibold">{{ $post['user_id'] }}</span> tarafından
                         </span>{{ \Carbon\Carbon::parse($post['published_at'])->diffForHumans() }} kaydedildi.
                         </p>
-                        <p href="{{ route('post', ['id' => $post['id']]) }}" class="pb-6">{{ Illuminate\Support\Str::limit($post['body'], 180) }}</p>
-                        <a href="{{ route('post', ['id' => $post['id']]) }}" class="uppercase text-sm text-yellow-600  text-gray-800 hover:text-black">DEVAMINI OKU <i class="fas fa-arrow-right"></i></a>
+                        <p href="{{ route('post', ['slug' => $post['slug']]) }}" class="pb-6">{{ Illuminate\Support\Str::limit($post['body'], 180) }}</p>
+                        <a href="{{ route('post', ['slug' => $post['slug']]) }}" class="uppercase text-sm text-yellow-600  text-gray-800 hover:text-black">DEVAMINI OKU <i class="fas fa-arrow-right"></i></a>
                     </div>
             </article>
             @endif

@@ -14,11 +14,11 @@
             <h2 class="font-bold text-3xl text-[#002D74]">Kle Tech Blog</h2>
             <p class="text-sm mt-3 text-[#002D74]">Kullanıcı bilgilerinizi aşağıdan güncelleyebilirsiniz.</p>
 
-            <form method="POST" action="{{ route('user.update', $user) }}" class="flex flex-col gap-4">
+            <form method="POST" action="{{ route('user.update') }}" class="flex flex-col gap-4">
                 @csrf
                 @method('PUT')
-                <input class="p-2 mt-8 rounded-xl border" type="text" value="{{ $user }}" placeholder="Ad Soyad" name="name">
-                <input class="p-2 rounded-xl border w-full" type="email"  value="{{ $email }}" name="email">
+                <input class="p-2 mt-8 rounded-xl border" type="name" value="{{ $user->name }}" name="name">
+                <input class="p-2 rounded-xl border w-full" type="email"  value="{{ Auth::user()->email }}" name="email">
                 <button type="submit" class="rounded-xl text-white py-2 hover:scale-105 duration-300 bg-yellow-600">Güncelle</button>
             </form>
 

@@ -4,51 +4,57 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Auth;
 use GuzzleHttp\Client;
 
 class UserController extends Controller
 {
+    // public function user()
+    // {
+    //     $token = session('token');
+
+    //     if($token) {
+    //         $response = Http::withToken($token)->get("http://host.docker.internal:81/api/getUser");
+    //         $data = $response->json();
+
+    //         $user = session()->get('name');
+    //         $user_id = session()->get('id');
+    //         $user_mail = session()->get('email');
+
+    //         session()->keep('name');
+
+    //         return view('user', ['user' => $user, 'id' => $user_id, 'email' =>  $user_mail]);
+    //     } else {
+    //         return redirect()->route('user.login')->with('error', 'Giriş yap');
+    //     }
+    // }
+
     public function user()
     {
-        $token = session('token');
-
-        if($token) {
-            // $response = Http::withToken($token)->get("http://host.docker.internal:81/api/getUser");
-            // $data = $response->json();
-
-            $user = session()->get('name');
-            $user_id = session()->get('id');
-            $user_mail = session()->get('email');
-
-            session()->keep('name');
-
-            return view('user', ['user' => $user, 'id' => $user_id, 'email' =>  $user_mail]);
-        } else {
-            return redirect()->route('user.login')->with('error', 'Giriş yap');
-        }
+        $user = Auth::user();
+        dd($user);
+        return view('user', ['user' => $user]);
     }
 
-    public function update($id, Request $request)
+    public function update(Request $request)
     {
         $token = session('token');
 
         if ($token) {
-            $response = Http::withToken($token)->put("http://host.docker.internal:81/api/updateUser/{$id}", [
-                'name' => $request->name,
-                'email' => $request->email,
+            $response = Http::put('http://host.docker.internal:81/api/updateUser', [
+                'name' => $request->input('name'),
+                'email' => $request->input('email')
             ]);
 
             if ($response->successful()) {
-                return redirect()->route('home')->with('success', $response->json('message'));
+                return redirect()->back()->with('success', 'Profil güncellendi!');
             } else {
-                $errorMessage = $response->json()['error'] ?? 'HATA!';
-                return redirect()->route('home')->with('error', $errorMessage);
+                return redirect()->back()->with('error', 'Profil güncellenirken bir hata oluştu. Lütfen tekrar deneyin.');
             }
         } else {
             return redirect()->route('user.login');
         }
     }
-
 
     public function signin()
     {
